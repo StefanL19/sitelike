@@ -1,0 +1,140 @@
+<head>
+  <title>siteace</title>
+</head>
+
+<body>
+
+	<!-- navbar  - you will be putting the login functions here -->
+	<!--<div class="container">
+		{{> website_form}}
+		{{> website_list}}
+	</div>-->
+
+</body>
+
+<template name="ApplicationLayout">
+  {{> yield "navbar"}}
+  {{> yield "main"}}
+</template>
+
+<template name = "welcome">
+  <div class="container">
+  <div class="jumbotron">
+  <h1>{{username}}  Welcome to SiteAce !!!</h1>
+  <a href="/websites" class="btn btn-info">ENTER</a>
+</div>
+</div>
+</template>
+
+
+<template name="navbar">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+            Site Ace
+            {{> loginButtons}}
+      </a>
+    </div>
+  </div>
+</nav>
+</template>
+
+<template name="website">
+  <div class="container">
+    <h1>{{title}} &nbsp; &nbsp; &nbsp; &nbsp; <a href='/websites'>[back]</a></h1>
+    <h2>Rating: {{rating}}</h2>
+    <p>{{description}}</p>
+    {{>comment_form}}
+  </div>
+</template>
+
+<template name="website_form">
+	<a class="btn btn-default js-toggle-website-form" href="#">
+  		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+	</a>
+	<div id="website_form" class="hidden_div">
+		<form class="js-save-website-form">
+		  <div class="form-group">
+		    <label for="url">Site address</label>
+		    <input type="text" class="form-control" id="url" placeholder="http://www.mysite.com">
+		  </div>
+		  <div class="form-group">
+		    <label for="title">Title</label>
+		    <input type="text" class="form-control" id="title" placeholder="Mysite">
+		  </div>
+		    <div class="form-group">
+		    <label for="description">Description</label>
+		    <input type="text" class="form-control" id="description" placeholder="I found this site really useful for ...">
+		  </div>
+
+		  <button type="submit" class="btn btn-default">Submit</button>
+		</form>
+	</div>
+</template>
+
+<!-- template that displays several website items -->
+<template name="website_list">
+  <div class="container">
+    {{>website_form}}
+	<ol>
+    {{#if filtering_websites}}
+      <p>Showing websites by user: {{getFilterUser}} <br/> <a href="#" class="js-unset-image-filter"> Show all websites! </a></p>
+    {{/if}}
+	{{#each websites}}
+	{{>website_item}}
+  <!--{{>comment_form}}-->
+	{{/each}}
+	</ol>
+</div>
+</template>
+
+<!-- template that displays individual website entries -->
+<template name="website_item">
+  <div class="container" id='{{_id}}'>
+<li>
+	<a href="/websites/{{_id}}">{{title}}</a>&nbsp;&nbsp;&nbsp;Rating:{{rating}}
+	<p>
+		{{description}}
+	</p>
+  <p><a href="#" class="js-set-image-user-filter">User: {{getUser createdBy}}</a></p>
+	<a href="#" class="btn btn-success js-upvote">
+		<span class="glyphicon glyphicon-hand-up" aria-hidden="true"></span>
+	</a>
+	<a href="#" class="btn btn-danger js-downvote">
+		<span class="glyphicon glyphicon-hand-down" aria-hidden="true"></span>
+	</a>
+  <a href="#" class="btn btn-warning js-delete">
+		<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+	</a>
+	<!-- you will be putting your up and down vote buttons in here! -->
+</li>
+<hr/>
+</div>
+</template>
+
+<!-- comments template -->
+
+  <template name="comment_form">
+    <div class="container">
+      <form class="js-comments-website-form ui reply form">
+        <div class="field">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+        <button type="submit" class="btn btn-default">Submit</button>
+        {{#each text}}
+        <p>{{creator}}</p>
+        <p>{{comment}}</p>
+        {{/each}}
+      </div>
+    </form><!-- / form -->
+    </div>
+  </template>
+
+<!-- / comments template -->
+
+<!-- search functionality template-->
+
+
+
+<!-- / search functionality -->

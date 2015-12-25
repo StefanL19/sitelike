@@ -1,0 +1,1 @@
+This is a simple project where people could add and vote for their favotite websites.
