@@ -161,6 +161,7 @@ Accounts.ui.config({
 	//this will appear under the site name etc. and will be highlighted
 	'click .js-set-image-user-filter':function(event){
 		Session.set("userFilter", this.createdBy);
+		console.log(this.createdBy);
 	},//end of choose user to show his images event
 	//this is an event to unset the user filter
 	//this is an event for the delete button
@@ -207,7 +208,7 @@ Accounts.ui.config({
 
 					//first call the Meteor method getTitle parse the url end initialize the function
 
-					Meteor.call('getTitle', url, function(err, results){
+					Meteor.call('getTitle', url, { "options": "to set" }, function(err, results){
 
 						//then we already obtained the content so now we should extract
 						//search for something within title tags
@@ -215,7 +216,6 @@ Accounts.ui.config({
 						//then parse it to our field in the database
 							var matchesTitle = results.content.match(/<title>(.*?)<\/title>/);
 							text = matchesTitle[1];
-							console.log(results.content);
 								var descriptionMatches = results.content.match(/<meta name="description" content="(.*?)">/);
 								var descriptionMatches1 = results.content.match(/<meta name=description content="(.*?)">/);
 							if(descriptionMatches != null)
@@ -260,8 +260,10 @@ Accounts.ui.config({
 				creator : Meteor.user().username,
 
 			});
+
 			return false;
-		}
+		},
+
 
 	});
 

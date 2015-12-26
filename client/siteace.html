@@ -95,7 +95,7 @@
 <li>
 	<a href="/websites/{{_id}}">{{title}}</a>&nbsp;&nbsp;&nbsp;Rating:{{rating}}
 	<p>
-		{{description}}
+		{{createdOn}}
 	</p>
   <p><a href="#" class="js-set-image-user-filter">User: {{getUser createdBy}}</a></p>
 	<a href="#" class="btn btn-success js-upvote">
@@ -122,11 +122,13 @@
         <label for="comment">Comment:</label>
         <textarea class="form-control" rows="5" id="comment"></textarea>
         <button type="submit" class="btn btn-default">Submit</button>
+        <div class="jumbotron">
         {{#each text}}
-        <p>{{creator}}</p>
-        <p>{{comment}}</p>
+        <h2>User: {{creator}}</h2>
+        <p>Comment: {{comment}}</p>
         {{/each}}
-      </div>
+       </div>
+    </div>
     </form><!-- / form -->
     </div>
   </template>
